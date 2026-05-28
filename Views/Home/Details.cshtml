@@ -107,19 +107,22 @@
                         <span class="info-val">Đổi trả sản phẩm trong 30 ngày <a href="#">Xem thêm</a></span>
                     </div>
 
-                    <div class="d-flex align-items-center gap-2 mb-4">
-                        <span class="fw-semibold" style="font-size:0.9rem;">Số lượng:</span>
-                        <button class="qty-btn" onclick="changeQty(-1)">−</button>
-                        <input type="number" id="qty" value="1" min="1" class="qty-input" />
-                        <button class="qty-btn" onclick="changeQty(1)">+</button>
-                    </div>
+                    @if (TempData["CartMessage"] is string cartMessage)
+                    {
+                        <div class="alert alert-success">@cartMessage</div>
+                    }
 
-                    <div class="d-flex gap-3 flex-wrap">
-                        <button class="btn-cart">
+                    <form method="get" class="d-flex align-items-center gap-3 flex-wrap mb-4">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <span class="fw-semibold" style="font-size:0.9rem;">Số lượng:</span>
+                        <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                        <input type="number" id="qty" name="qty" value="1" min="1" class="qty-input" onchange="ensureQty()" />
+                        <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+                        <button type="submit" class="btn-cart" formaction="@Url.Action("Add", "Cart")">
                             &#128722; Thêm vào giỏ hàng
                         </button>
-                        <button class="btn-buy">Mua ngay</button>
-                    </div>
+                        <button type="submit" class="btn-buy" formaction="@Url.Action("BuyNow", "Cart")">Mua ngay</button>
+                    </form>
                 </div>
             </div>
 
@@ -144,6 +147,13 @@
             var val = parseInt(input.value) + delta;
             if (val < 1) val = 1;
             input.value = val;
+        }
+
+        function ensureQty() {
+            var input = document.getElementById('qty');
+            if (!input.value || parseInt(input.value) < 1) {
+                input.value = 1;
+            }
         }
     </script>
 }
