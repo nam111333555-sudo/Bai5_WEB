@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A237E;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3949AB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="280" fill="url(#bg2)" rx="4"/>
+  <rect width="8" height="280" fill="#00000033" rx="2"/>
+  <!-- Code brackets decoration -->
+  <text x="30" y="100" font-family="Courier New" font-size="60" fill="#ffffff15" font-weight="bold">{</text>
+  <text x="130" y="140" font-family="Courier New" font-size="60" fill="#ffffff15" font-weight="bold">}</text>
+  <!-- Monitor icon -->
+  <rect x="55" y="55" width="90" height="65" fill="none" stroke="#64B5F6" stroke-width="3" rx="5"/>
+  <rect x="70" y="120" width="60" height="6" fill="#64B5F6" rx="2"/>
+  <rect x="80" y="126" width="40" height="5" fill="#42A5F5" rx="2"/>
+  <!-- Code lines on monitor -->
+  <rect x="65" y="67" width="50" height="4" fill="#81C784" rx="2" opacity="0.8"/>
+  <rect x="65" y="76" width="35" height="4" fill="#FFB74D" rx="2" opacity="0.8"/>
+  <rect x="65" y="85" width="60" height="4" fill="#64B5F6" rx="2" opacity="0.8"/>
+  <rect x="65" y="94" width="40" height="4" fill="#F48FB1" rx="2" opacity="0.8"/>
+  <rect x="65" y="103" width="55" height="4" fill="#81C784" rx="2" opacity="0.8"/>
+  <!-- Divider -->
+  <rect x="20" y="155" width="160" height="2" fill="#ffffff44" rx="1"/>
+  <!-- Title -->
+  <text x="100" y="178" font-family="Arial" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">Lập Trình</text>
+  <text x="100" y="196" font-family="Arial" font-size="12" font-weight="bold" fill="#FFD54F" text-anchor="middle">Không Khó</text>
+  <!-- Author -->
+  <text x="100" y="222" font-family="Arial" font-size="9" fill="#ffffffbb" text-anchor="middle">Lê Xuân Viết</text>
+  <!-- Bottom -->
+  <rect x="0" y="258" width="200" height="22" fill="#00000044" rx="0"/>
+  <text x="100" y="273" font-family="Arial" font-size="8" fill="#ffffffaa" text-anchor="middle">NXB Lập Trình</text>
+</svg>

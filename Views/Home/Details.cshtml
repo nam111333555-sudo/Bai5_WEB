@@ -1,0 +1,149 @@
+@model BookDB.Models.Book
+@{
+    ViewData["Title"] = Model.Title;
+    var categories = (IEnumerable<BookDB.Models.Category>)ViewBag.Categories;
+    decimal originalPrice = Math.Round(Model.Price * 1.3m / 1000) * 1000;
+    int discount = (int)Math.Round((1 - Model.Price / originalPrice) * 100);
+}
+
+<style>
+    .detail-wrap { background:#fff; border-radius:8px; box-shadow:0 1px 8px rgba(0,0,0,.08); padding:24px; }
+    .detail-price { font-size:1.8rem; font-weight:700; color:#e53935; }
+    .detail-original { text-decoration:line-through; color:#999; font-size:1rem; }
+    .detail-discount { background:#e53935; color:#fff; font-size:0.78rem; padding:2px 7px; border-radius:3px; font-weight:600; }
+    .stars { color:#f5a623; font-size:1rem; letter-spacing:1px; }
+    .qty-btn { width:34px; height:34px; border:1px solid #ccc; background:#f5f5f5; cursor:pointer; font-size:1.1rem; line-height:1; border-radius:3px; }
+    .qty-btn:hover { background:#e0e0e0; }
+    .qty-input { width:52px; height:34px; text-align:center; border:1px solid #ccc; font-size:0.95rem; border-radius:0; }
+    .btn-cart { background:#fff; color:#e53935; border:2px solid #e53935; font-weight:600; border-radius:4px; padding:10px 22px; }
+    .btn-cart:hover { background:#fce4e4; color:#e53935; }
+    .btn-buy { background:#e53935; color:#fff; font-weight:600; border:none; border-radius:4px; padding:10px 22px; }
+    .btn-buy:hover { background:#c62828; color:#fff; }
+    .info-row { display:flex; gap:4px; font-size:0.88rem; padding:5px 0; border-bottom:1px solid #f0f0f0; }
+    .info-label { color:#777; min-width:150px; flex-shrink:0; }
+    .info-val a { color:#1565c0; text-decoration:none; }
+    .info-val a:hover { text-decoration:underline; }
+    .price-box { background:#fff8f8; border-radius:6px; padding:14px 16px; margin-bottom:16px; }
+    .sidebar-cat a { color:#1565c0; text-decoration:none; font-size:0.9rem; }
+    .sidebar-cat a:hover { text-decoration:underline; }
+</style>
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Trang Chủ</a></li>
+        <li class="breadcrumb-item">
+            <a asp-action="Index" asp-route-categoryId="@Model.CategoryId">@Model.Category?.CategoryName</a>
+        </li>
+        <li class="breadcrumb-item active text-truncate" style="max-width:320px;">@Model.Title</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    @* Sidebar chủ đề *@
+    <div class="col-md-2">
+        <div class="card p-3 shadow-sm">
+            <h6 class="fw-bold mb-2">Chủ đề</h6>
+            <ul class="list-unstyled mb-0 sidebar-cat">
+                @foreach (var cat in categories)
+                {
+                    <li class="mb-1">
+                        <a asp-action="Index" asp-route-categoryId="@cat.CategoryId">@cat.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    @* Nội dung chi tiết *@
+    <div class="col-md-10">
+        <div class="detail-wrap">
+            <h5 class="fw-bold mb-3 text-center">THÔNG TIN CHI TIẾT SÁCH</h5>
+            <hr class="mb-3" />
+            <div class="row g-4">
+                @* Ảnh bìa sách *@
+                <div class="col-md-4 text-center">
+                    <img src="~/images/books/@Model.Image"
+                         onerror="this.src='/images/no-image.svg'"
+                         alt="@Model.Title"
+                         class="img-fluid rounded shadow-sm"
+                         style="max-height:380px;object-fit:contain;" />
+                </div>
+
+                @* Thông tin sản phẩm *@
+                <div class="col-md-8">
+                    <h5 class="fw-bold mb-1">@Model.Title</h5>
+                    <p class="mb-2 text-danger fw-semibold">Tác giả: @Model.Author</p>
+
+                    <div class="mb-2">
+                        <span class="stars">★★★★★</span>
+                        <span class="text-muted small ms-1">(79 đánh giá)</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Nhà cung cấp:</span>
+                        <span class="info-val"><a href="#">@Model.Category?.CategoryName</a></span>
+                        <span class="info-label ms-4">Tác giả:</span>
+                        <span class="info-val"><a href="#">@Model.Author</a></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Nhà xuất bản:</span>
+                        <span class="info-val"><a href="#">NXB @Model.Category?.CategoryName</a></span>
+                    </div>
+
+                    <div class="price-box mt-3">
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <span class="detail-price">@Model.Price.ToString("N0") đ</span>
+                            <span class="detail-original">@originalPrice.ToString("N0") đ</span>
+                            <span class="detail-discount">-@discount%</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Thời gian giao hàng</span>
+                        <span class="info-val">Giao hàng đến: <a href="#">Thay đổi</a></span>
+                    </div>
+                    <div class="info-row mb-3">
+                        <span class="info-label">Chính sách đổi trả</span>
+                        <span class="info-val">Đổi trả sản phẩm trong 30 ngày <a href="#">Xem thêm</a></span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <span class="fw-semibold" style="font-size:0.9rem;">Số lượng:</span>
+                        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                        <input type="number" id="qty" value="1" min="1" class="qty-input" />
+                        <button class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn-cart">
+                            &#128722; Thêm vào giỏ hàng
+                        </button>
+                        <button class="btn-buy">Mua ngay</button>
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <hr class="mt-4" />
+                <h6 class="fw-bold">Mô tả sản phẩm</h6>
+                <p class="text-muted" style="font-size:0.95rem;line-height:1.7;">@Model.Description</p>
+            }
+
+            <div class="mt-3">
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">&#8592; Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function changeQty(delta) {
+            var input = document.getElementById('qty');
+            var val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+        }
+    </script>
+}

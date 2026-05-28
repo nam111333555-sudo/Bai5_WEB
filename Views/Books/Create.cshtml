@@ -1,0 +1,83 @@
+@model BookDB.Models.Book
+@{
+    ViewData["Title"] = "Thêm sách mới";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Thêm sách mới</h4>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">&#8592; Về trang chủ</a>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card shadow-sm p-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label fw-semibold"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Nhập tên sách..." />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Author" class="form-label fw-semibold"></label>
+                    <input asp-for="Author" class="form-control" placeholder="Nhập tên tác giả..." />
+                    <span asp-validation-for="Author" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-semibold"></label>
+                    <div class="input-group">
+                        <input asp-for="Price" class="form-control" type="number" min="0" placeholder="0" />
+                        <span class="input-group-text">VNĐ</span>
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label fw-semibold"></label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-select">
+                        <option value="">-- Chọn chủ đề --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Mô tả nội dung sách..."></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Hình ảnh bìa sách</label>
+                    <input type="file" name="ImageFile" id="imageFile" class="form-control" accept="image/*"
+                           onchange="previewImage(this)" />
+                    <div class="mt-2" id="previewBox" style="display:none;">
+                        <img id="imgPreview" src="#" alt="Xem trước" style="max-height:180px;object-fit:contain;border-radius:4px;border:1px solid #ddd;padding:4px;" />
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">Lưu sách</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imgPreview').src = e.target.result;
+                    document.getElementById('previewBox').style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

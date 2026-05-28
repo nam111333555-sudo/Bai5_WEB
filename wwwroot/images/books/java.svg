@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="280" viewBox="0 0 200 280">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B5E20;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="280" fill="url(#bg3)" rx="4"/>
+  <rect width="8" height="280" fill="#00000033" rx="2"/>
+  <!-- Java coffee cup icon -->
+  <ellipse cx="100" cy="75" rx="30" ry="8" fill="#FFF9C4" opacity="0.3"/>
+  <path d="M 72 80 Q 68 130 100 140 Q 132 130 128 80 Z" fill="#795548"/>
+  <path d="M 128 95 Q 148 95 148 112 Q 148 125 128 125" fill="none" stroke="#795548" stroke-width="8" stroke-linecap="round"/>
+  <!-- Steam lines -->
+  <path d="M 88 68 Q 84 58 88 50 Q 92 42 88 34" fill="none" stroke="#ffffffaa" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 100 65 Q 96 55 100 47 Q 104 39 100 31" fill="none" stroke="#ffffffaa" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 112 68 Q 108 58 112 50 Q 116 42 112 34" fill="none" stroke="#ffffffaa" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- JAVA text on cup -->
+  <text x="100" y="118" font-family="Arial" font-size="14" font-weight="bold" fill="#FFF9C4" text-anchor="middle">JAVA</text>
+  <!-- Divider -->
+  <rect x="20" y="158" width="160" height="2" fill="#ffffff44" rx="1"/>
+  <!-- Title -->
+  <text x="100" y="180" font-family="Arial" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle">Core Java</text>
+  <text x="100" y="196" font-family="Arial" font-size="10" font-weight="bold" fill="#A5D6A7" text-anchor="middle">Fundamentals</text>
+  <text x="100" y="211" font-family="Arial" font-size="9" fill="#ffffffcc" text-anchor="middle">Volume 1</text>
+  <!-- Author -->
+  <text x="100" y="234" font-family="Arial" font-size="9" fill="#ffffffbb" text-anchor="middle">Cay Horstmann</text>
+  <!-- Bottom -->
+  <rect x="0" y="258" width="200" height="22" fill="#00000044" rx="0"/>
+  <text x="100" y="273" font-family="Arial" font-size="8" fill="#ffffffaa" text-anchor="middle">NXB Lập Trình</text>
+</svg>

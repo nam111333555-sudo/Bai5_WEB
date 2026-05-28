@@ -1,0 +1,95 @@
+@model IEnumerable<BookDB.Models.Book>
+@{
+    ViewData["Title"] = "Trang Chủ";
+    var categories = (IEnumerable<BookDB.Models.Category>)ViewBag.Categories;
+    int? selectedCategoryId = ViewBag.SelectedCategoryId;
+}
+
+<div class="row">
+    @* Sidebar *@
+    <div class="col-md-2">
+        <h5 class="fw-bold mb-3">Chủ đề</h5>
+        <ul class="list-unstyled">
+            <li class="mb-2">
+                <a asp-action="Index"
+                   class="text-decoration-none @(!selectedCategoryId.HasValue ? "fw-bold text-danger" : "text-dark")">
+                    Tất cả (@Model.Count())
+                </a>
+            </li>
+            @foreach (var cat in categories)
+            {
+                <li class="mb-2">
+                    <a asp-action="Index" asp-route-categoryId="@cat.CategoryId"
+                       class="text-decoration-none @(selectedCategoryId == cat.CategoryId ? "fw-bold text-danger" : "text-dark")">
+                        @cat.CategoryName (@cat.Books.Count)
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    @* Main content *@
+    <div class="col-md-10">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0 fw-bold">
+                @if (selectedCategoryId.HasValue)
+                {
+                    @categories.FirstOrDefault(c => c.CategoryId == selectedCategoryId)?.CategoryName
+                }
+                else
+                {
+                    <span>Tất cả sách</span>
+                }
+            </h5>
+            <a asp-controller="Books" asp-action="Create" class="btn btn-success btn-sm">+ Thêm mới</a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info">Chưa có sách nào trong chủ đề này.</div>
+        }
+        else
+        {
+            var displayCategories = selectedCategoryId.HasValue
+                ? categories.Where(c => c.CategoryId == selectedCategoryId)
+                : categories;
+
+            @foreach (var cat in displayCategories)
+            {
+                var booksInCat = Model.Where(b => b.CategoryId == cat.CategoryId).ToList();
+                if (!booksInCat.Any()) continue;
+
+                <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+                    @foreach (var book in booksInCat)
+                    {
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-header d-flex justify-content-between align-items-center py-2 bg-white">
+                                    <span class="fw-semibold small text-truncate" style="max-width:80%;" title="@book.Title">@book.Title</span>
+                                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id"
+                                       class="text-primary small text-decoration-none ms-1 flex-shrink-0">Edit</a>
+                                </div>
+                                <div class="card-body p-2">
+                                    <p class="small mb-1 text-muted">Tác giả: <strong class="text-dark">@book.Author</strong></p>
+                                    <p class="small mb-2 text-muted">Thể loại: <strong class="text-dark">@book.Category?.CategoryName</strong></p>
+                                    <div class="text-center" style="height:160px;background:#f8f9fa;border-radius:4px;overflow:hidden;">
+                                        <img src="~/images/books/@book.Image"
+                                             onerror="this.src='/images/no-image.svg'"
+                                             alt="@book.Title"
+                                             style="height:100%;width:100%;object-fit:contain;" />
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex gap-2 p-2 bg-white">
+                                    <a asp-action="Details" asp-route-id="@book.Id"
+                                       class="btn btn-sm btn-outline-primary flex-fill">Chi tiết</a>
+                                    <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id"
+                                       class="btn btn-sm btn-danger flex-fill">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

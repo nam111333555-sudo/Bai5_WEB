@@ -1,0 +1,43 @@
+@model BookDB.Models.Book
+@{
+    ViewData["Title"] = "Xóa sách";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Xác nhận xóa sách</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-3 mb-3">
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="~/images/books/@Model.Image"
+                             onerror="this.src='/images/no-image.svg'"
+                             alt="@Model.Title"
+                             style="width:80px;height:110px;object-fit:contain;border-radius:4px;border:1px solid #eee;" />
+                    }
+                    <div>
+                        <p class="mb-1"><strong>Tên sách:</strong> @Model.Title</p>
+                        <p class="mb-1"><strong>Tác giả:</strong> @Model.Author</p>
+                        <p class="mb-1"><strong>Chủ đề:</strong> @Model.Category?.CategoryName</p>
+                        <p class="mb-0"><strong>Giá bán:</strong> @Model.Price.ToString("N0") VNĐ</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning py-2 mb-3">
+                    <strong>Cảnh báo:</strong> Bạn có chắc muốn xóa sách này không? Hành động này không thể hoàn tác.
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
