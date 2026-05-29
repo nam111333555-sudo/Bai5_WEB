@@ -4,15 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookDB.Controllers
+namespace BookDB.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class BooksController : Controller
+    public class ProductsController : Controller
     {
         private readonly BookDbContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public BooksController(BookDbContext context, IWebHostEnvironment env)
+        public ProductsController(BookDbContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;

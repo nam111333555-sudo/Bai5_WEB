@@ -1,0 +1,42 @@
+@model BookDB.Models.Category
+@{
+    ViewData["Title"] = "Xóa chủ đề";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Xác nhận xóa chủ đề</h4>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">&#8592; Danh sách</a>
+</div>
+
+<div class="card shadow-sm border-danger">
+    <div class="card-body">
+        <div class="alert alert-danger">
+            <strong>Cảnh báo!</strong> Xóa chủ đề này sẽ <strong>xóa tất cả @Model.Books.Count sách</strong> thuộc chủ đề này. Hành động này không thể hoàn tác!
+        </div>
+        <dl class="row">
+            <dt class="col-sm-3">Tên chủ đề</dt>
+            <dd class="col-sm-9 fw-semibold">@Model.CategoryName</dd>
+            <dt class="col-sm-3">Số sách bị xóa</dt>
+            <dd class="col-sm-9">
+                @if (Model.Books.Any())
+                {
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var book in Model.Books)
+                        {
+                            <li><span class="text-danger">&#10005;</span> @book.Title</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span class="text-muted">Không có sách nào</span>
+                }
+            </dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="CategoryId" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+        </form>
+    </div>
+</div>

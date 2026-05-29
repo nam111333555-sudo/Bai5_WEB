@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body { background-color: #f0f2f5; }
+        .admin-sidebar { min-height: calc(100vh - 56px); background: #212529; }
+        .admin-sidebar .nav-link { color: #adb5bd; }
+        .admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active { color: #fff; background: rgba(255,255,255,0.1); border-radius: 4px; }
+        .admin-sidebar .nav-link i { margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-danger px-3">
+        <a class="navbar-brand fw-bold" asp-area="Admin" asp-controller="Products" asp-action="Index">
+            &#9881; Admin Panel
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">&#8592; Về trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link text-white-50">@User.Identity?.Name</span>
+                </li>
+                <li class="nav-item">
+                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link text-white p-0 ms-2">Đăng xuất</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 col-lg-2 d-md-block admin-sidebar py-3">
+                <ul class="nav flex-column px-2">
+                    <li class="nav-item mb-1">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Products" ? "active" : "")"
+                           asp-area="Admin" asp-controller="Products" asp-action="Index">
+                            &#128218; Quản lý sách
+                        </a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Categories" ? "active" : "")"
+                           asp-area="Admin" asp-controller="Categories" asp-action="Index">
+                            &#128193; Quản lý chủ đề
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-10 col-lg-10 ms-sm-auto px-4 py-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -8,13 +8,23 @@
     <div class="col-md-6">
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
-                <h4 class="card-title mb-3">Đăng ký</h4>
+                <h4 class="card-title mb-3">Đăng ký tài khoản</h4>
                 <form asp-action="Register" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div class="mb-3">
+                        <label asp-for="UserName" class="form-label"></label>
+                        <input asp-for="UserName" class="form-control" placeholder="Tên đăng nhập (không dấu, không khoảng trắng)" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
                     <div class="mb-3">
                         <label asp-for="FullName" class="form-label"></label>
                         <input asp-for="FullName" class="form-control" />
                         <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control" placeholder="Địa chỉ (không bắt buộc)" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Email" class="form-label"></label>
@@ -38,3 +48,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

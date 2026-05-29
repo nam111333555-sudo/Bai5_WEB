@@ -1,0 +1,46 @@
+@model IEnumerable<BookDB.Models.Category>
+@{
+    ViewData["Title"] = "Quản lý chủ đề";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Quản lý chủ đề</h4>
+    <a asp-action="Create" class="btn btn-success btn-sm">+ Thêm chủ đề mới</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Tên chủ đề</th>
+                    <th>Số sách</th>
+                    <th style="width:180px;">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cat in Model)
+                {
+                    <tr>
+                        <td class="align-middle">@cat.CategoryId</td>
+                        <td class="align-middle fw-semibold">@cat.CategoryName</td>
+                        <td class="align-middle">
+                            <span class="badge bg-info text-dark">@cat.Books.Count sách</span>
+                        </td>
+                        <td class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@cat.CategoryId" class="btn btn-sm btn-outline-warning">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@cat.CategoryId" class="btn btn-sm btn-outline-danger">Xóa</a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Chưa có chủ đề nào.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

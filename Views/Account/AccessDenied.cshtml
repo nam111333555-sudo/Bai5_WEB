@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Không có quyền truy cập";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 text-center">
+        <div class="card shadow-sm border-danger">
+            <div class="card-body p-5">
+                <h1 class="display-1 text-danger">403</h1>
+                <h4 class="mb-3">Không có quyền truy cập</h4>
+                <p class="text-muted">Bạn không có quyền truy cập vào trang này. Chức năng này chỉ dành cho Admin.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">&#8592; Về trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>

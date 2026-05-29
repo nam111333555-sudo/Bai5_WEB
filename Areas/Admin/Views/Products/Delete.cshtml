@@ -1,0 +1,30 @@
+@model BookDB.Models.Book
+@{
+    ViewData["Title"] = "Xóa sách";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Xác nhận xóa sách</h4>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">&#8592; Danh sách</a>
+</div>
+
+<div class="card shadow-sm border-danger">
+    <div class="card-body">
+        <div class="alert alert-danger">Bạn có chắc chắn muốn xóa cuốn sách này không?</div>
+        <dl class="row">
+            <dt class="col-sm-3">Tên sách</dt>
+            <dd class="col-sm-9">@Model.Title</dd>
+            <dt class="col-sm-3">Tác giả</dt>
+            <dd class="col-sm-9">@Model.Author</dd>
+            <dt class="col-sm-3">Giá</dt>
+            <dd class="col-sm-9 text-danger">@Model.Price.ToString("N0") đ</dd>
+            <dt class="col-sm-3">Chủ đề</dt>
+            <dd class="col-sm-9">@Model.Category?.CategoryName</dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+        </form>
+    </div>
+</div>

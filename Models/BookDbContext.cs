@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookDB.Models
 {
-    public class BookDbContext : DbContext
+    public class BookDbContext : IdentityDbContext<ApplicationUser>
     {
         public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) { }
 
